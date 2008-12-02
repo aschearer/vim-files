@@ -1,1 +1,13 @@
 A vimrc file and other goodies used by Alex Schearer.
+
+On Unix:
+
+    cp vimrc ~/.vimrc
+    cp -r vim ~/.vim/
+
+On Windows:
+
+    xcopy vimrc %USERPROFILE%\_vimrc
+    xcopy vim %USERPROFILE%\vimfiles
+
+This set up is intended to be used with gvim on Windows.
