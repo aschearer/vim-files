@@ -101,6 +101,10 @@ function! s:loadSkeleton()
     endif 
 endfunction 
 
+" Have files default to human readable if
+" they aren't already identified.
+au BufRead,BufNewFile * setfiletype human
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Windows specific stuff here
 
