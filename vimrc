@@ -34,6 +34,7 @@ filetype on                       " Enable filetype detection,
 filetype indent on                " use filetype specific indenting,
 filetype plugin on                " also allow filetype specific plugins,
 syntax on                         " Turn on syntax highlighting
+color slate
 
 " Set up indents to use 4 spaces, set a line to be 80 characters and 
 " configure what wraps and what doesn't
@@ -94,8 +95,12 @@ nmap <C-T> :TlistToggle<CR>
 " Script by scrooloose on Freenode
 autocmd bufnewfile * call s:loadSkeleton() 
 function! s:loadSkeleton() 
-    let skel_file = expand("~/.vim/skeletons/" . &filetype) 
-    if filereadable(expand("~/.vim/skeletons/" . &filetype)) 
+    let skel_path="~/.vim/skeletons/"
+    if has ("gui_win32")
+        let skel_path="~/vimfiles/skeletons/"
+    endif
+    let skel_file = expand(skel_path . &filetype) 
+    if filereadable(expand(skel_path . &filetype)) 
         exec "read " . skel_file
         0d 
     endif 
@@ -105,13 +110,19 @@ endfunction
 " they aren't already identified.
 au BufRead,BufNewFile * setfiletype human
 
+" Count the instances of the word in the document.
+function! Count(word)
+    execute '%s/' . a:word . '//n'
+endfunction
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Windows specific stuff here
 
 if has("gui_win32")
     " Set the path to ctags since it doesn't find it on its own.
     let Tlist_Ctags_Cmd='~\bin\ctags.exe'
-    autocmd GUIEnter * :simalt ~x " Open in full screen mode
+    "autocmd GUIEnter * :simalt ~x " Open in full screen mode
     set guifont=Courier_new       " Use a prettier font
-    set formatprg=stylizer        " Beautify code, make it obey StyleCop
+    set shell=powershell.exe      " Use powershell instead of cmd
 endif
